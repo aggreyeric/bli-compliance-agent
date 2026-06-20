@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><title>BLI Compliance Agent</title>
+<style>
+body { font-family: system-ui; max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+h1 { color: #1a56db; }
+textarea { width: 100%; height: 200px; font-family: monospace; padding: 0.5rem; }
+button { background: #1a56db; color: white; border: none; padding: 0.6rem 1.5rem; margin-top: 0.5rem; cursor: pointer; font-size: 1rem; }
+.results { margin-top: 1.5rem; }
+.obligation { border-left: 4px solid #ccc; padding: 0.5rem 1rem; margin: 0.5rem 0; }
+.obligation.high { border-color: #ef4444; }
+.obligation.medium { border-color: #f59e0b; }
+.obligation.low { border-color: #22c55e; }
+.summary { background: #f3f4f6; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; }
+.risk-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; color: white; }
+.risk-high { background: #ef4444; }
+.risk-medium { background: #f59e0b; }
+.risk-low { background: #22c55e; }
+</style>
+</head>
+<body>
+<h1>⚖️ BLI Legal Compliance Agent</h1>
+<p>Paste a legal document below to extract obligations and risk scores.</p>
+<textarea id="doc" placeholder="Paste contract text here..."></textarea>
+<br>
+<button onclick="analyze()">Analyze Document</button>
+<div id="results" class="results"></div>
+<script>
+async function analyze() {
+  const doc = document.getElementById('doc').value;
+  const res = await fetch('/api/comply', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({document: doc}) });
+  const data = await res.json();
+  const el = document.getElementById('results');
+  if (data.obligations) {
+    let html = `<div class="summary"><strong>Found ${data.summary.total} obligations:</strong> ${data.summary.high} high, ${data.summary.medium} medium, ${data.summary.low} low risk</div>`;
+    for (const o of data.obligations) {
+      html += `<div class="obligation ${o.risk}"><span class="risk-badge risk-${o.risk}">${o.risk.toUpperCase()}</span> <strong>${o.category}</strong><br><em>"${o.snippet}"</em><br>💡 ${o.recommendation}</div>`;
+    }
+    el.innerHTML = html;
+  } else {
+    el.innerHTML = `<p>No obligations found. Try a longer legal document.</p>`;
+  }
+}
+</script>
+</body>
+</html>
