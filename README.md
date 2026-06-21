@@ -108,3 +108,7 @@ flowchart TD
 
 ## 📄 License
 MIT — see [LICENSE](./LICENSE).
+
+## 🤖 AI Assistants
+
+→ See [CLAUDE.md](./CLAUDE.md) for AI coding assistant context.
