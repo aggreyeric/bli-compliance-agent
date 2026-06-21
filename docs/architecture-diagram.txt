@@ -1,0 +1,83 @@
+﻿
+  ╔════════════════════════════════════════════════════════════════════════════════════════╗
+  ║                       BLI  LEGAL  COMPLIANCE  AGENT                                     ║
+  ║         AI-Powered Document Scanner · 15-Term Risk Scoring · 100% On-Prem              ║
+  ║         Stack:  Node.js  ·  TypeScript  ·  Express  ·  Docker                           ║
+  ╚════════════════════════════════════════════════════════════════════════════════════════╝
+
+  ┌────────────────┐
+  │   📄  USER      │   contract · NDA · terms-of-service
+  │   document      │
+  └───────┬────────┘
+          │
+          │  (a) paste into Web UI      (b) POST /api/comply  { document }
+          │                                     │
+          ▼                                     ▼
+  ┌──────────────────────────────────────────────────────────────────────────────────────┐
+  │                       EXPRESS SERVER  (src/index.ts)                                  │
+  │                                                                                      │
+  │   ┌────────────────────────────┐         ┌────────────────────────────────────┐     │
+  │   │  Web UI                     │         │  REST Routes  (src/routes.ts)       │     │
+  │   │  public/index.html          │         │  • GET  /api/health  → {ok}         │     │
+  │   │  paste-and-analyze box      │         │  • POST /api/comply  → obligations  │     │
+  │   └──────────────┬─────────────┘         └─────────────────┬──────────────────┘     │
+  │                  └──────────────────┬──────────────────────┘                        │
+  └─────────────────────────────────────┼───────────────────────────────────────────────┘
+                                        │
+                                        ▼
+  ┌──────────────────────────────────────────────────────────────────────────────────────┐
+  │              COMPLIANCE AGENT  (src/agent.ts)   —  pure · deterministic · typed       │
+  │                                                                                      │
+  │   ┌───────────────────────────┐                                                      │
+  │   │  Clause Segmentation      │   split on sentence boundaries ( . ) + newlines     │
+  │   └─────────────┬─────────────┘                                                      │
+  │                 ▼                                                                    │
+  │   ┌───────────────────────────────────────────────────────────────────────────────┐  │
+  │   │              15 LEGAL TERM EXTRACTORS   (keyword-based corpus)                 │  │
+  │   │                                                                               │  │
+  │   │  ┌────────────┐ ┌────────────┐ ┌──────────┐ ┌───────────┐ ┌──────────────┐    │  │
+  │   │  │ Liability  │ │ Indemnity  │ │    IP    │ │ Jurisdic- │ │ Confidential-│    │  │
+  │   │  └────────────┘ └────────────┘ └──────────┘ │  tion    │ │   ity        │    │  │
+  │   │  ┌────────────┐ ┌────────────┐ ┌──────────┐ └───────────┘ └──────────────┘    │  │
+  │   │  │Termination │ │Payment / $ │ │Warranties│ ┌───────────┐ ┌──────────────┐    │  │
+  │   │  └────────────┘ └────────────┘ └──────────┘ │  Force    │ │   Governing  │    │  │
+  │   │  ┌────────────┐ ┌────────────┐ ┌──────────┐ │ Majeure   │ │     Law      │    │  │
+  │   │  │ Arbitration│ │Non-Compete │ │   Data   │ └───────────┘ └──────────────┘    │  │
+  │   │  └────────────┘ └────────────┘ │ Privacy │                                        │  │
+  │   │  ┌────────────┐ ┌────────────┐ └──────────┘  ... + remaining categories        │  │
+  │   │  │ Assignment │ │  Remedies  │                                                │  │
+  │   │  └────────────┘ └────────────┘                                                │  │
+  │   └───────────────────────────────────────────────────────────────────────────────┘  │
+  │                 │                                                                    │
+  │                 ▼                                                                    │
+  │   ┌───────────────────────────────────────────────────────────────────────────────┐  │
+  │   │                       RISK SCORING ENGINE                                       │  │
+  │   │                                                                                  │  │
+  │   │     🔴 HIGH        🟡 MEDIUM        🟢 LOW       + plain-English recommendation │  │
+  │   │   (cap liability, mutualize indemnity, clarify jurisdiction, ...)               │  │
+  │   └───────────────────────────────────────────────────────────────────────────────┘  │
+  │                 │                                                                    │
+  │                 ▼                                                                    │
+  │   ┌───────────────────────────┐                                                      │
+  │   │  Summary Rollup           │   total · high · medium · low                       │
+  │   └─────────────┬─────────────┘                                                      │
+  └─────────────────┼────────────────────────────────────────────────────────────────────┘
+                    │
+                    ▼  { obligations[], summary{} }   — identical JSON every run
+         ┌──────────────────────────┬────────────────────────────┐
+         │                          │                            │
+         ▼                          ▼                            ▼
+  ┌────────────────┐      ┌──────────────────┐        ┌──────────────────────┐
+  │  Web UI        │      │  REST consumer   │        │  external pipelines  │
+  │  risk badges   │      │  programmatic    │        │  CI · CLM · Slack    │
+  │  🔴🟡🟢         │      │  JSON client     │        │  procurement bots    │
+  └────────────────┘      └──────────────────┘        └──────────────────────┘
+
+  ── DESIGN PRINCIPLES ───────────────────────────────────────────────────────────────────
+    • DETERMINISTIC  — every run on the same contract returns byte-identical results
+    • PRIVATE        — documents never leave your infrastructure (no cloud, no LLM)
+    • ZERO MARGINAL  — keyword engine means no per-token cost and no API keys to manage
+
+  ── ENDPOINTS ───────────────────────────────────────────────────────────────────────────
+    GET  /api/health                       POST /api/comply   { "document": "…" }
+    Web UI: http://localhost:3000           (docker compose up --build)
