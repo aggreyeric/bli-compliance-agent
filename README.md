@@ -102,5 +102,10 @@ flowchart TD
 3. Paste any legal document (contract, terms of service, NDA)
 4. Click **Analyze Document** — see obligations with risk scores
 
+## 📸 Screenshots
+| Web UI — Contract Analysis | REST API Response |
+|---|---|
+| ![web ui](docs/web-ui.png) | ![api](docs/api-response.png) |
+
 ## 📄 License
 MIT — see [LICENSE](./LICENSE).
