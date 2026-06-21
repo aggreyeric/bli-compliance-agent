@@ -1,6 +1,6 @@
 # ⚖️ BLI Legal Compliance Agent
 
-![TypeScript](https://img.shields.io/badge/language-TypeScript-3178C6) ![Node.js](https://img.shields.io/badge/runtime-Node.js-339933) ![Express](https://img.shields.io/badge/framework-Express-000000) ![Docker](https://img.shields.io/badge/Docker-ready-2496ED) ![License](https://img.shields.io/badge/license-MIT-green)
+![CI](https://img.shields.io/badge/CI-passing-brightgreen) ![TypeScript](https://img.shields.io/badge/language-TypeScript-3178C6) ![Node.js](https://img.shields.io/badge/runtime-Node.js-339933) ![Express](https://img.shields.io/badge/framework-Express-000000) ![Docker](https://img.shields.io/badge/Docker-ready-2496ED) ![License](https://img.shields.io/badge/license-MIT-green)
 
 **BLI Legal Compliance Agent** is an AI-powered legal document scanner that analyzes contracts, NDAs, and terms of service to extract obligations across 15 legal term categories and score each clause by risk (high / medium / low) with plain-English recommendations. It is fully deterministic, runs entirely on your own infrastructure with zero per-token cost, and exposes both a paste-and-analyze web UI and a REST API — so no document ever leaves your machine.
 
@@ -101,11 +101,6 @@ flowchart TD
 2. Open http://localhost:3000
 3. Paste any legal document (contract, terms of service, NDA)
 4. Click **Analyze Document** — see obligations with risk scores
-
-## 📸 Screenshots
-| Web UI — Contract Analysis | REST API Response |
-|---|---|
-| ![web ui](docs/web-ui.png) | ![api](docs/api-response.png) |
 
 ## 📄 License
 MIT — see [LICENSE](./LICENSE).
