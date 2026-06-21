@@ -1,6 +1,10 @@
 # ⚖️ BLI Legal Compliance Agent
 
-![CI](https://img.shields.io/badge/CI-passing-brightgreen) ![TypeScript](https://img.shields.io/badge/language-TypeScript-3178C6) ![Node.js](https://img.shields.io/badge/runtime-Node.js-339933) ![Express](https://img.shields.io/badge/framework-Express-000000) ![Docker](https://img.shields.io/badge/Docker-ready-2496ED) ![License](https://img.shields.io/badge/license-MIT-green)
+![CI](https://img.shields.io/badge/CI-passing-brightgreen) ![TypeScript](https://img.shields.io/badge/language-TypeScript-3178C6) ![Node.js](https://img.shields.io/badge/runtime-Node.js-339933) ![Express](https://img.shields.io/badge/framework-Express-000000) ![Docker](https://img.shields.io/badge/Docker-ready-2496ED) ![License](https://img.shields.io/badge/license-MIT-green) ![BLI](https://img.shields.io/badge/hackathon-BLI%20Legal%20Tech-orange)
+
+## 📸 Screenshot
+
+![BLI Compliance Agent UI](docs/screenshot-ui.png)
 
 **BLI Legal Compliance Agent** is an AI-powered legal document scanner that analyzes contracts, NDAs, and terms of service to extract obligations across 15 legal term categories and score each clause by risk (high / medium / low) with plain-English recommendations. It is fully deterministic, runs entirely on your own infrastructure with zero per-token cost, and exposes both a paste-and-analyze web UI and a REST API — so no document ever leaves your machine.
 
